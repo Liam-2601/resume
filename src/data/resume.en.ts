@@ -105,7 +105,7 @@ export const resumeEn = {
     },
     {
       name: 'Highlights Tool',
-      description: 'Worked on backend of Highlights tool which is used by an editorial team to manage content on yallo tv.' +
+      description: 'Worked on backend of Highlights tool which is used by an editorial team to manage content on yallo tv. ' +
           'The tool is based on the headless CMS Storyblok.',
       url: '',
       image: '/display-highlights-tool.png',
