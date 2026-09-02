@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+/* ---- design tokens (defaults = light theme) ---- */
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+
+  /* Clean neutral-grey theme with a single teal brand color. Light mode is
+     true neutral greys on near-white; dark mode is a genuine dark GREY
+     (never navy-tinted, never nearly-black) for less eye strain. `accent-ink`
+     is the near-black text color used on top of teal fills in both modes —
+     the teal itself sits at a lightness that never pairs well with light text. */
+  --color-ink: #1f1f1f;
+  --color-ink-soft: #525252;
+  --color-ink-faint: #6b6b6b;
+  --color-paper: #fafafa;
+  --color-paper-raised: #ffffff;
+  --color-line: #e0e0e0;
+
+  --color-accent: #05ad98;
+  --color-accent-soft: #def7f4;
+  --color-accent-ink: #14201e;
+  --color-accent-2: #0e8173;
+  --color-accent-2-soft: #def7f4;
+}
+
+/* ---- dark theme overrides ----
+   Tailwind reads these custom properties at paint time, so redefining them
+   here repaints every `bg-paper` / `text-ink` / etc. utility automatically. */
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    --color-ink: #ededed;
+    --color-ink-soft: #bfbfbf;
+    --color-ink-faint: #9e9e9e;
+    --color-paper: #1a1a1a;
+    --color-paper-raised: #333333;
+    --color-line: #666666;
+
+    --color-accent: #3eead6;
+    --color-accent-soft: #123631;
+    --color-accent-ink: #14201e;
+    --color-accent-2: #74e7d9;
+    --color-accent-2-soft: #123631;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-ink: #ededed;
+  --color-ink-soft: #bfbfbf;
+  --color-ink-faint: #9e9e9e;
+  --color-paper: #1a1a1a;
+  --color-paper-raised: #333333;
+  --color-line: #666666;
+
+  --color-accent: #3eead6;
+  --color-accent-soft: #123631;
+  --color-accent-ink: #14201e;
+  --color-accent-2: #74e7d9;
+  --color-accent-2-soft: #123631;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@keyframes bounce-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-bounce-y {
+  animation: bounce-y 2s ease-in-out infinite;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+/* subtle film-grain texture, sits above everything, tints nothing structural */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background-color: var(--color-accent-2-soft);
+  color: var(--color-accent-2);
+}
+
+/* Visible keyboard-focus ring, on-brand and consistent across every
+   interactive element (nav links, buttons, filter pills, cards). Only
+   shows for keyboard/AT navigation, never on mouse click. Uses accent-2,
+   not the lime accent — lime fails contrast against the light paper tone. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 2px;
+}
+
+.bg-dot-grid {
+  background-image: radial-gradient(circle, var(--color-ink-faint) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 0%, transparent 75%);
+  opacity: 0.35;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes chip-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.85);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-chip-pop {
+  animation: chip-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 26s linear infinite;
+}
+
+/* cursor-follow glow used on experience / project / certification cards */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+  transition: border-color 0.3s ease;
+}
+
+.spotlight-card:hover {
+  border-color: color-mix(in oklab, var(--color-accent-2) 45%, var(--color-line));
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in oklab, var(--color-accent) 30%, transparent),
+    transparent 65%
+  );
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-bounce-y,
+  .animate-marquee,
+  .animate-chip-pop {
+    animation: none;
+    opacity: 1;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
