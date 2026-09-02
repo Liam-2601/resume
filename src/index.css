@@ -5,6 +5,7 @@
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-signature: "Alex Brush", cursive;
 
   /* Clean neutral-grey theme with a single teal brand color. Light mode is
      true neutral greys on near-white; dark mode is a genuine dark GREY

@@ -3,6 +3,7 @@ import { resumeByLocale } from '../data'
 import { useLanguage } from '../i18n/LanguageContext'
 import { ui } from '../i18n/ui'
 import type { Locale } from '../i18n/types'
+import { initialsOf } from '../lib/initials'
 
 /**
  * Dedicated CV layout, tuned for A4 print / PDF export.
@@ -26,15 +27,6 @@ function getLocaleOverride(): Locale | null {
   if (typeof window === 'undefined') return null
   const param = new URLSearchParams(window.location.search).get('lang')
   return param === 'de' || param === 'en' ? param : null
-}
-
-function initialsOf(name: string) {
-  return name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase())
-    .join('')
 }
 
 export default function Print() {

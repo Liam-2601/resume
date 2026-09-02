@@ -12,6 +12,7 @@ import LogoBadge from '../components/LogoBadge'
 import ProjectPreview from '../components/ProjectPreview'
 import SkillCloud from '../components/SkillCloud'
 import Languages from '../components/Languages'
+import Signature from '../components/Signature'
 
 export default function Home() {
   const resume = useResume()
@@ -354,7 +355,9 @@ export default function Home() {
             </a>
           </div>
 
-          <footer className="mt-24 flex flex-wrap items-center justify-center gap-3 border-t border-line pt-6 text-xs text-ink-faint">
+          <Signature text={resume.name} textClassName="text-5xl" lineWidth={220} className="mt-20" />
+
+          <footer className="mt-8 flex flex-wrap items-center justify-center gap-3 border-t border-line pt-6 text-xs text-ink-faint">
             <p>
               © {new Date().getFullYear()} {resume.name}
             </p>
