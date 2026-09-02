@@ -92,7 +92,7 @@ export const resumeEn = {
         'Worked across Frontend, Backend and Full-Stack Development',
         'Gained hands-on experience with different development environments and projects',
       ],
-      stack: ['Python', 'PostgreSQL', 'Java', 'PostgreSQL', 'React', 'Flask', 'Linux', 'Angular'],
+      stack: ['Python', 'PostgreSQL', 'Java', 'React', 'Flask', 'Linux', 'Angular'],
     },
   ] satisfies Experience[],
 
