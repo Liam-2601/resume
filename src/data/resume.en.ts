@@ -33,16 +33,15 @@ export const resumeEn = {
 
   about: {
     paragraphs: [
-      "I got into engineering because I like taking something messy and making it click — " +
-        'whether that is an API, a data pipeline, or a gnarly bit of UI state.',
-      'I care most about the boring-sounding stuff that actually matters: readable code, ' +
-        'tests that catch real bugs, and shipping in small steps instead of big-bang releases.',
+      "I'm a Zürich-based Software Engineer, currently working at Sunrise Communications, " +
+        'helping build reliable backend systems and cloud infrastructure for customers across Switzerland.',
+      'In my free time, you can catch me at the gym, going for a run, playing guitar, or out hiking.',
     ],
     facts: [
       { label: 'Focus', value: 'Software Engineering' },
       { label: 'Currently', value: 'Junior Software Engineer @Sunrise' },
       { label: 'Based in', value: 'Zürich, Switzerland' },
-      { label: 'Outside work', value: 'Gym, Running and playing Guitar' },
+      { label: 'Outside work', value: 'Running, gym, guitar and hiking' },
     ] satisfies Fact[],
   },
 

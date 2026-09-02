@@ -36,16 +36,16 @@ export const resumeDe = {
 
   about: {
     paragraphs: [
-      'Ich bin zur Softwareentwicklung gekommen, weil ich es liebe, aus etwas Unübersichtlichem ' +
-        'etwas Stimmiges zu machen — sei es eine API, eine Datenpipeline oder ein kniffliger UI-Zustand.',
-      'Am wichtigsten sind mir die unspektakulären Dinge, die wirklich zählen: lesbarer Code, ' +
-        'Tests, die echte Fehler finden, und kleine, kontinuierliche Releases statt riskanter Grossreleases.',
+      'Ich bin Softwareentwickler mit Sitz in Zürich und arbeite aktuell bei Sunrise Communications, ' +
+        'wo ich an zuverlässigen Backend-Systemen und der Cloud-Infrastruktur für Kundinnen und Kunden ' +
+        'in der ganzen Schweiz mitarbeite.',
+      'In meiner Freizeit trifft man mich im Fitnessstudio, beim Joggen, beim Gitarrespielen oder beim Wandern.',
     ],
     facts: [
       { label: 'Fokus', value: 'Softwareentwicklung' },
       { label: 'Aktuell', value: 'Junior Software Engineer @Sunrise' },
       { label: 'Standort', value: 'Zürich, Schweiz' },
-      { label: 'Freizeit', value: 'Fitness, Laufen und Gitarre spielen' },
+      { label: 'Freizeit', value: 'Laufen, Fitness, Gitarre und Wandern' },
     ] satisfies Fact[],
   },
 
