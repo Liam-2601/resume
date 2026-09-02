@@ -109,7 +109,7 @@ export const resumeEn = {
   skills: [
     { label: 'Programming', items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'Rust'] },
     { label: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Angular'] },
-    { label: 'Backend', items: ['Node.js', 'FastAPI', 'PostgreSQL', 'Bootstrap', 'Axum', 'MongoDB', 'MySQL', 'Kubernetes'] },
+    { label: 'Backend', items: ['Node.js', 'FastAPI', 'PostgreSQL', 'Axum', 'MongoDB', 'MySQL', 'Kubernetes'] },
     { label: 'Tools', items: ['Git', 'Docker', 'CI/CD', 'Bitbucket', 'Jira'] },
     { label: 'Soft Skills', items: ['Communication', 'Teamwork', 'Problem Solving', 'Adaptability', 'Leadership'] },
   ] satisfies SkillGroup[],
