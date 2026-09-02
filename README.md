@@ -33,6 +33,15 @@ updated CV downloads — it boots a local Vite server, renders `/print?lang=en` 
 The site's "Download CV" button links to whichever file matches the current language
 toggle.
 
+**`public/cv-en.pdf` and `public/cv-de.pdf` are committed to the repo** — they're
+build inputs, not build outputs. The production build (`npm run build`, what
+Cloudflare runs) never regenerates them, since generating them needs Puppeteer to
+launch an actual Chromium instance, and Puppeteer's Chromium download is blocked by
+Cloudflare's build environment (postinstall scripts are gated there). So: **run
+`npm run pdf` locally and commit the two PDF files every time the résumé content
+changes** — otherwise the live "Download CV" button keeps serving the old (or a
+missing) file.
+
 ## Adding images
 
 The profile photo, company/school logos, project screenshots, and certification
@@ -65,6 +74,8 @@ and ATS-friendly.
 ## Deploying
 
 `npm run build` outputs a static site in `dist/` — deploy it to any static host
-(Vercel, Netlify, GitHub Pages, S3, etc.). Run `npm run pdf` before building if
-`public/cv-en.pdf` / `public/cv-de.pdf` need to be refreshed, since they're generated,
-not committed.
+(Cloudflare, Vercel, Netlify, GitHub Pages, S3, etc.). Currently deployed via
+Cloudflare Workers (`wrangler deploy`, auto-configured for SPA asset serving).
+Run `npm run pdf` and commit the result before pushing if `public/cv-en.pdf` /
+`public/cv-de.pdf` need to be refreshed (see above — they're committed, not
+generated at deploy time).
