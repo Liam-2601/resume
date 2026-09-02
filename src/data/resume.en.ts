@@ -99,10 +99,25 @@ export const resumeEn = {
   projects: [
     {
       name: 'Yallo TV',
-      description: 'Freemium TV platform for yallo internet provider.',
+      description: 'Worked on Backend of Freemium TV platform for multiple tenants.',
       url: 'https://www.yallo.tv/',
       image: '/yallo_preview.jpg',
       stack: ['Python', 'FastAPI', 'RabbitMQ', 'AWS', 'Google Cloud', 'Kubernetes', 'MongoDB'],
+    },
+    {
+      name: 'Highlights Tool',
+      description: 'Worked on backend of Highlights tool which is used by an editorial team to manage content on yallo tv.' +
+          'The tool is based on the headless CMS Storyblok.',
+      url: '',
+      image: '/display-highlights-tool.png',
+      stack: ['Python', 'FastAPI', 'Google Cloud', 'Storyblok'],
+    },
+    {
+      name: 'Mission Control Tool',
+      description: 'Worked Fullstack on management tool for a multi tenant TV-Platform.',
+      url: '',
+      image: '/display-mission-control.png',
+      stack: ['Python', 'FastAPI', 'Google Cloud', 'Vite', 'React'],
     },
   ] satisfies Project[],
 
@@ -110,7 +125,7 @@ export const resumeEn = {
     { label: 'Programming', items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'Rust'] },
     { label: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Angular'] },
     { label: 'Backend', items: ['Node.js', 'FastAPI', 'PostgreSQL', 'Axum', 'MongoDB', 'MySQL', 'Kubernetes'] },
-    { label: 'Tools', items: ['Git', 'Docker', 'CI/CD', 'Bitbucket', 'Jira'] },
+    { label: 'Tools', items: ['Git', 'Docker', 'CI/CD', 'Bitbucket', 'Jira', 'Storyblok'] },
     { label: 'Soft Skills', items: ['Communication', 'Teamwork', 'Problem Solving', 'Adaptability', 'Leadership'] },
   ] satisfies SkillGroup[],
 
