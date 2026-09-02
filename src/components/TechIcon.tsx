@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { getTechIcon } from '../lib/techIcons'
+import { getCustomTechIcon } from '../lib/customTechIcons'
 import { getSoftSkillIcon } from '../lib/softSkillIcons'
 
 export default function TechIcon({
@@ -25,6 +26,25 @@ export default function TechIcon({
         className={`shrink-0 transition-colors duration-300 ${hoverBrand ? 'group-hover:text-[var(--brand)]' : ''} ${className}`}
       >
         <path d={icon.path} />
+      </svg>
+    )
+  }
+
+  // Not in simple-icons — try the hand-drawn brand-style set for techs that
+  // library doesn't cover (AWS, Java, Axum, CI/CD).
+  const customIcon = getCustomTechIcon(name)
+  if (customIcon) {
+    const brandStyle = hoverBrand ? ({ '--brand': `#${customIcon.hex}` } as CSSProperties) : undefined
+    return (
+      <svg
+        role="img"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden
+        style={brandStyle}
+        className={`shrink-0 transition-colors duration-300 ${hoverBrand ? 'group-hover:text-[var(--brand)]' : ''} ${className}`}
+      >
+        {customIcon.node}
       </svg>
     )
   }

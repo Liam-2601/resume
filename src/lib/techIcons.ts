@@ -51,6 +51,7 @@ import {
   siBitbucket,
   siJira,
   siRabbitmq,
+  siStoryblok,
   type SimpleIcon,
 } from 'simple-icons'
 
@@ -124,6 +125,7 @@ const ICONS: Record<string, SimpleIcon> = {
   bitbucket: siBitbucket,
   jira: siJira,
   rabbitmq: siRabbitmq,
+  storyblok: siStoryblok,
 }
 
 export function getTechIcon(label: string): SimpleIcon | undefined {
