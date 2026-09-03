@@ -150,7 +150,7 @@ export default function Print() {
       {/* ---------------------------------------------------------------- */}
       <main className="flex-1 bg-white">
         <header
-          className="px-8 py-5 text-white"
+          className="px-8 py-4 text-white"
           style={{ background: `linear-gradient(100deg, ${INK}, ${INK_2})` }}
         >
           <h1 className="text-[22pt] font-semibold tracking-tight">{resume.name}</h1>
@@ -159,9 +159,9 @@ export default function Print() {
           </p>
         </header>
 
-        <div className="px-8 py-4">
+        <div className="px-8 py-3">
           <Section title={t.print.experience} accent={ACCENT}>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {resume.experience.map((job) => (
                 <div key={`${job.company}-${job.role}`} className="break-inside-avoid">
                   <div className="flex items-baseline justify-between gap-3">
@@ -241,7 +241,7 @@ export default function Print() {
 
           {resume.certifications.length > 0 && (
             <Section title={t.print.certifications} accent={ACCENT}>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-1">
                 {resume.certifications.map((cert) => (
                   <p key={cert.name} className="text-[8.5pt]">
                     <span className="font-semibold">{cert.name}</span>

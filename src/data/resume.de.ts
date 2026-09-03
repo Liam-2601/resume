@@ -64,7 +64,7 @@ export const resumeDe = {
         'Arbeit über den gesamten Entwicklungszyklus hinweg — von Coding und Testing bis zum Cloud-Deployment',
         'Mitwirkung bei der agilen Planung, dem Ticket-Refinement und der Zusammenarbeit im Team',
       ],
-      stack: ['Python', 'FastAPI', 'RabbitMQ', 'AWS', 'Google Cloud', 'Kubernetes', 'MongoDB'],
+      stack: ['Python', 'FastAPI', 'GraphQL', 'Redis', 'RabbitMQ', 'AWS', 'Google Cloud', 'Kubernetes', 'MongoDB'],
     },
     {
       role: 'Rekrutenschule',
@@ -112,7 +112,7 @@ export const resumeDe = {
   skills: [
     { label: 'Programmierung', items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'Rust'] },
     { label: 'Frontend', items: ['React', 'Vite', 'Tailwind CSS', 'Angular'] },
-    { label: 'Backend', items: ['Node.js', 'FastAPI', 'PostgreSQL', 'Bootstrap', 'Axum', 'MongoDB', 'MySQL', 'Kubernetes'] },
+    { label: 'Backend', items: ['Node.js', 'FastAPI', 'GraphQL', 'Redis', 'PostgreSQL', 'Bootstrap', 'Axum', 'MongoDB', 'MySQL', 'Kubernetes'] },
     { label: 'Tools', items: ['Git', 'Docker', 'CI/CD', 'Bitbucket', 'Jira'] },
     { label: 'Soft Skills', items: ['Kommunikation', 'Teamfähigkeit', 'Problemlösung', 'Anpassungsfähigkeit', 'Führungskompetenz'] },
   ] satisfies SkillGroup[],
