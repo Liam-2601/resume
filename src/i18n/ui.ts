@@ -42,6 +42,8 @@ export const ui = {
     scrollToExperience: 'Scroll to experience',
     footerBuiltWith: 'Built with React, TypeScript & Tailwind CSS',
     print: {
+      contact: 'Contact',
+      profile: 'Profile',
       experience: 'Experience',
       projects: 'Projects',
       skills: 'Skills',
@@ -92,6 +94,8 @@ export const ui = {
     scrollToExperience: 'Zum Werdegang scrollen',
     footerBuiltWith: 'Erstellt mit React, TypeScript & Tailwind CSS',
     print: {
+      contact: 'Kontakt',
+      profile: 'Profil',
       experience: 'Berufserfahrung',
       projects: 'Projekte',
       skills: 'Kenntnisse',
