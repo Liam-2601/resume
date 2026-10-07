@@ -14,6 +14,11 @@ copies (not derived from one another) sharing the same shape defined in
 Edit whichever language's file you need, save, and both the web page and the generated
 PDF for that language update automatically.
 
+Each job in `experience` has a `from` (and, once it's over, a `to`) month as `YYYY-MM`,
+in both files. `start`/`end` are only the text shown on the page; `from`/`to` drive the
+duration chip ("1 year 2 months") and the work timeline. Leave `to` out for a role that's
+still ongoing and it gets the pulsing live dot.
+
 Non-résumé UI text (nav labels, section headings, button copy) lives separately in
 [`src/i18n/ui.ts`](src/i18n/ui.ts), also as an English/German dictionary.
 

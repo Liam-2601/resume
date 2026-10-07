@@ -49,7 +49,7 @@ export default function LogoBadge({
           <img src={src} alt={name} className="h-full w-full object-contain p-2" />
         )
       ) : (
-        <span className="font-mono text-xl font-medium text-ink-faint">{initialsOf(name)}</span>
+        <span className="text-xl font-medium text-ink-faint">{initialsOf(name)}</span>
       )}
     </div>
   )

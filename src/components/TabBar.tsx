@@ -60,7 +60,7 @@ export default function TabBar({ stages }: { stages: StageInfo[] }) {
             href={`#${s.id}`}
             data-value={s.id}
             aria-current={isActive ? 'true' : undefined}
-            className={`relative z-10 whitespace-nowrap rounded-full px-4 py-2 text-center font-mono text-[13px] uppercase tracking-wide transition-colors duration-200 ${
+            className={`relative z-10 whitespace-nowrap rounded-full px-3 py-2 text-center xl:px-4 text-[13px] uppercase tracking-wide transition-colors duration-200 ${
               isActive ? 'text-accent-ink' : 'text-ink-soft hover:text-ink'
             }`}
           >

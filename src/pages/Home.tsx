@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useResume } from '../data'
 import { useLanguage } from '../i18n/LanguageContext'
 import Nav from '../components/Nav'
@@ -13,10 +14,18 @@ import ProjectPreview from '../components/ProjectPreview'
 import SkillCloud from '../components/SkillCloud'
 import Languages from '../components/Languages'
 import Signature from '../components/Signature'
+import ExperienceCounter from '../components/ExperienceCounter'
+import CommandPalette from '../components/CommandPalette'
+import AccentPicker from '../components/AccentPicker'
+import LocalTime from '../components/LocalTime'
+import CopyEmailButton from '../components/CopyEmailButton'
+import { DurationChip, Timeline, TimelineItem } from '../components/Timeline'
+import { CAREER_START } from '../data/career'
 
 export default function Home() {
   const resume = useResume()
   const { locale, t } = useLanguage()
+  const [paletteOpen, setPaletteOpen] = useState(false)
 
   const STAGES = [
     { id: 'intro', label: t.stages.intro },
@@ -38,7 +47,8 @@ export default function Home() {
       >
         {t.skipToContent}
       </a>
-      <Nav stages={STAGES} />
+      <Nav stages={STAGES} onOpenPalette={() => setPaletteOpen(true)} />
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} stages={STAGES} />
 
       <main id="main-content" tabIndex={-1} className="pt-16 focus:outline-none">
         {/* Stage — Intro + About */}
@@ -57,22 +67,24 @@ export default function Home() {
             <div className="animate-fade-up mx-auto flex w-full max-w-xs flex-col items-center gap-6 lg:mx-0 lg:max-w-none lg:items-start">
               <Avatar src={resume.photo || undefined} name={resume.name} className="w-40 sm:w-48" />
               <div className="grid w-full grid-cols-2 gap-3">
+                <ExperienceCounter since={CAREER_START} className="col-span-2" />
                 {resume.about.facts.map((f) => (
                   <div key={f.label} className="rounded-2xl border border-line bg-paper-raised p-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-wide text-accent-2">{f.label}</p>
-                    <p className="mt-1 text-sm text-ink">{f.value}</p>
+                    <p className="text-[11px] uppercase tracking-wide text-accent-2">{f.label}</p>
+                    <p className="wrap-long mt-1 text-sm text-ink">{f.value}</p>
+                    {f.live === 'time' && <LocalTime />}
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="text-center lg:text-left">
-              <p className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised/70 px-3 py-1 font-mono text-xs text-accent-2 [animation-delay:80ms]">
+              <p className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised/70 px-3 py-1 text-xs text-accent-2 [animation-delay:80ms]">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent-2" />
                 {resume.title}
               </p>
 
-              <h1 className="animate-fade-up mt-5 font-display text-5xl font-normal leading-[1.05] tracking-tight text-ink [animation-delay:140ms] sm:text-6xl">
+              <h1 className="animate-fade-up mt-5 text-5xl font-bold leading-[1.05] tracking-tight text-ink [animation-delay:140ms] sm:text-6xl">
                 {resume.name}
               </h1>
 
@@ -82,7 +94,7 @@ export default function Home() {
 
               <Reveal delay={120} className="mx-auto mt-6 max-w-xl space-y-4 lg:mx-0">
                 {resume.about.paragraphs.map((p, i) => (
-                  <p key={i} className="text-sm leading-relaxed text-ink-soft sm:text-base">
+                  <p key={i} className="text-base leading-relaxed text-ink-soft sm:text-lg">
                     {p}
                   </p>
                 ))}
@@ -92,12 +104,18 @@ export default function Home() {
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-ink-soft">
                   {resume.location}
                 </span>
-                <a
-                  href={`mailto:${resume.email}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-ink-soft transition-colors hover:border-accent-2 hover:text-accent-2"
-                >
-                  {resume.email}
-                </a>
+                <span className="inline-flex items-center rounded-full border border-line text-ink-soft transition-colors hover:border-accent-2">
+                  <a
+                    href={`mailto:${resume.email}`}
+                    className="rounded-l-full py-1.5 pl-3 pr-2 transition-colors hover:text-accent-2"
+                  >
+                    {resume.email}
+                  </a>
+                  <CopyEmailButton
+                    email={resume.email}
+                    className="mr-1 flex h-7 w-7 items-center justify-center rounded-full text-ink-faint transition-colors hover:bg-accent/15 hover:text-accent-2"
+                  />
+                </span>
                 <a
                   href={resume.links.linkedin}
                   target="_blank"
@@ -158,20 +176,18 @@ export default function Home() {
         {/* Stage — Experience */}
         <Stage id="experience">
           <SectionHeading index={t.sectionIndex.work} title={t.headings.work} />
-          <div className="relative space-y-6">
-            <div className="absolute left-4 top-2 bottom-2 w-px -translate-x-1/2 bg-gradient-to-b from-accent via-line to-transparent sm:left-5" />
+          <Timeline className="space-y-6">
             {resume.experience.map((job, i) => (
               <Reveal key={`${job.company}-${job.role}`} delay={i * 90}>
-                <div className="relative pl-8 sm:pl-10">
-                  <span className="absolute left-4 top-7 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-accent bg-paper sm:left-5" />
-                  <GlowCard className="rounded-2xl border border-line bg-paper-raised p-6">
+                <TimelineItem current={!job.to}>
+                  <GlowCard id={`experience-${i}`} className="rounded-2xl border border-line bg-paper-raised p-6">
                   <div className="flex items-start gap-4">
                     <LogoBadge src={job.logo} name={job.company} className="h-16 w-16" />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-baseline justify-between gap-2">
                         <h3 className="text-base font-semibold text-ink">
                           {job.role}
-                          <span className="mx-2 text-ink-faint">·</span>
+                          <span className="mx-2 inline-block text-ink-faint">·</span>
                           {job.companyUrl ? (
                             <a href={job.companyUrl} target="_blank" rel="noreferrer" className="text-accent-2 hover:underline">
                               {job.company}
@@ -180,8 +196,11 @@ export default function Home() {
                             <span className="text-ink-soft">{job.company}</span>
                           )}
                         </h3>
-                        <span className="font-mono text-xs text-ink-faint">
-                          {job.start} — {job.end}
+                        <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-faint">
+                          <span>
+                            {job.start} — {job.end}
+                          </span>
+                          <DurationChip role={job} />
                         </span>
                       </div>
                       <p className="mt-0.5 text-sm text-ink-faint">{job.location}</p>
@@ -203,10 +222,10 @@ export default function Home() {
                     </div>
                   )}
                   </GlowCard>
-                </div>
+                </TimelineItem>
               </Reveal>
             ))}
-          </div>
+          </Timeline>
         </Stage>
 
         {/* Stage — Projects */}
@@ -216,7 +235,7 @@ export default function Home() {
             <div className="grid gap-5 sm:grid-cols-2">
               {resume.projects.map((p, i) => (
                 <Reveal key={p.name} delay={i * 90}>
-                  <GlowCard className="h-full overflow-hidden rounded-2xl border border-line bg-paper-raised">
+                  <GlowCard id={`project-${i}`} className="h-full overflow-hidden rounded-2xl border border-line bg-paper-raised">
                     <ProjectPreview src={p.image} name={p.name} />
                     <div className="p-5">
                       <h3 className="text-sm font-semibold text-ink">
@@ -249,7 +268,7 @@ export default function Home() {
 
           {resume.languages.length > 0 && (
             <Reveal className="mt-10">
-              <h3 className="mb-3 font-mono text-xs uppercase tracking-wide text-accent-2">
+              <h3 className="mb-3 text-xs uppercase tracking-wide text-accent-2">
                 {t.languagesISpeak}
               </h3>
               <Languages items={resume.languages} />
@@ -264,7 +283,7 @@ export default function Home() {
             <div className="grid gap-5 sm:grid-cols-2">
               {resume.certifications.map((cert, i) => (
                 <Reveal key={cert.name} delay={i * 90}>
-                  <GlowCard className="flex items-start gap-4 rounded-2xl border border-line bg-paper-raised p-5">
+                  <GlowCard id={`cert-${i}`} className="flex items-start gap-4 rounded-2xl border border-line bg-paper-raised p-5">
                     {cert.badge ? (
                       <LogoBadge src={cert.badge} name={cert.name} className="h-16 w-16" />
                     ) : (
@@ -286,7 +305,7 @@ export default function Home() {
                         )}
                       </h3>
                       <p className="mt-0.5 text-sm text-ink-soft">{cert.issuer}</p>
-                      <p className="mt-1 font-mono text-xs text-ink-faint">{cert.date}</p>
+                      <p className="mt-1 text-xs text-ink-faint">{cert.date}</p>
                     </div>
                   </GlowCard>
                 </Reveal>
@@ -301,12 +320,12 @@ export default function Home() {
           <div className="space-y-6">
             {resume.education.map((ed, i) => (
               <Reveal key={`${ed.school}-${ed.degree}`} delay={i * 90}>
-                <GlowCard className="flex items-start gap-4 rounded-2xl border border-line bg-paper-raised p-6">
+                <GlowCard id={`education-${i}`} className="flex items-start gap-4 rounded-2xl border border-line bg-paper-raised p-6">
                   <LogoBadge src={ed.logo} name={ed.school} className="h-16 w-16" />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <h3 className="text-base font-semibold text-ink">{ed.degree}</h3>
-                      <span className="font-mono text-xs text-ink-faint">
+                      <span className="text-xs text-ink-faint">
                         {ed.start} — {ed.end}
                       </span>
                     </div>
@@ -315,7 +334,7 @@ export default function Home() {
                     </p>
                     {ed.detail && <p className="mt-1 text-sm text-ink-faint">{ed.detail}</p>}
                     {ed.grade && (
-                      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 font-mono text-[11px] text-accent-2">
+                      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 text-[12px] text-accent-2">
                         {t.gradeLabel}: {ed.grade}
                       </span>
                     )}
@@ -333,18 +352,21 @@ export default function Home() {
             aria-hidden
             className="absolute left-1/2 top-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-2/20 blur-[120px]"
           />
-          <p className="font-mono text-xs uppercase tracking-wide text-accent-2">{t.sectionIndex.contact}</p>
-          <h2 className="mt-4 font-display text-4xl font-normal tracking-tight text-ink sm:text-5xl">
+          <p className="text-xs uppercase tracking-wide text-accent-2">{t.sectionIndex.contact}</p>
+          <h2 className="mt-4 text-4xl font-bold tracking-tight text-ink sm:text-5xl">
             {t.letsBuildSomething}
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">{t.openToOpportunities}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href={`mailto:${resume.email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink shadow-sm shadow-accent/30 transition-transform hover:scale-[1.03] active:scale-[0.98]"
-            >
-              {resume.email}
-            </a>
+            <span className="inline-flex items-stretch overflow-hidden rounded-full bg-accent text-sm font-medium text-accent-ink shadow-sm shadow-accent/30 transition-transform hover:scale-[1.03] active:scale-[0.98]">
+              <a href={`mailto:${resume.email}`} className="py-2.5 pl-5 pr-3">
+                {resume.email}
+              </a>
+              <CopyEmailButton
+                email={resume.email}
+                className="flex items-center border-l border-accent-ink/20 px-3.5 transition-colors hover:bg-accent-ink/10"
+              />
+            </span>
             <a
               href={resume.links.linkedin}
               target="_blank"
@@ -355,14 +377,16 @@ export default function Home() {
             </a>
           </div>
 
-          <Signature text={resume.name} textClassName="text-5xl" lineWidth={220} className="mt-20" />
+          <Signature text={resume.name} textClassName="text-5xl" lineWidth={220} className="mt-20" replayLabel={t.signAgain} />
 
           <footer className="mt-8 flex flex-wrap items-center justify-center gap-3 border-t border-line pt-6 text-xs text-ink-faint">
             <p>
               © {new Date().getFullYear()} {resume.name}
             </p>
             <span aria-hidden>·</span>
-            <p className="font-mono">{t.footerBuiltWith}</p>
+            <p>{t.footerBuiltWith}</p>
+            <span aria-hidden>·</span>
+            <AccentPicker />
           </footer>
         </Stage>
       </main>

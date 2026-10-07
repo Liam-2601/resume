@@ -1,28 +1,13 @@
-import { useEffect, useState } from 'react'
-
-type Theme = 'light' | 'dark'
-
-function getInitialTheme(): Theme {
-  if (typeof document === 'undefined') return 'light'
-  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
-}
+import { toggleTheme, useTheme } from '../lib/theme'
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme)
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    try {
-      localStorage.setItem('theme', theme)
-    } catch {
-      // ignore (private browsing / storage disabled)
-    }
-  }, [theme])
+  const theme = useTheme()
 
   return (
     <button
       type="button"
-      onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+      data-theme-toggle
+      onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       className="group relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:border-accent-2 hover:text-accent-2"
     >

@@ -59,7 +59,7 @@ function FilterBar({
           data-value={c}
           aria-pressed={active === c}
           onClick={() => onChange(c)}
-          className={`relative z-10 shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wide transition-colors duration-200 ${
+          className={`relative z-10 shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[12px] uppercase tracking-wide transition-colors duration-200 ${
             active === c ? 'text-accent-ink' : 'text-ink-soft hover:text-ink'
           }`}
         >
@@ -115,8 +115,9 @@ function SkillChip({
 }) {
   return (
     <span
+      data-skill={name}
       style={style}
-      className={`group inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised px-3.5 py-2 font-mono text-xs text-ink-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-2/50 hover:text-ink hover:shadow-[0_8px_20px_-12px_rgba(0,0,0,0.25)] ${className}`}
+      className={`group inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised px-3.5 py-2 text-xs text-ink-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-2/50 hover:text-ink hover:shadow-[0_8px_20px_-12px_rgba(0,0,0,0.25)] ${className}`}
     >
       <TechIcon name={name} hoverBrand className="h-4 w-4" />
       {name}

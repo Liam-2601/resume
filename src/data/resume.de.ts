@@ -44,7 +44,7 @@ export const resumeDe = {
     facts: [
       { label: 'Fokus', value: 'Softwareentwicklung' },
       { label: 'Aktuell', value: 'Junior Software Engineer @Sunrise' },
-      { label: 'Standort', value: 'Zürich, Schweiz' },
+      { label: 'Standort', value: 'Zürich, Schweiz', live: 'time' },
       { label: 'Freizeit', value: 'Laufen, Fitness, Gitarre und Wandern' },
     ] satisfies Fact[],
   },
@@ -58,6 +58,7 @@ export const resumeDe = {
       location: 'Zürich, Schweiz',
       start: 'August 2025',
       end: 'Heute',
+      from: '2025-08',
       highlights: [
         'Entwicklung einer Microservice-Architektur mit Fokus auf Backend-Services und Cloud-Lösungen',
         'Aufbau und Pflege von CI/CD-Pipelines und automatisierten Deployment-Prozessen',
@@ -74,6 +75,8 @@ export const resumeDe = {
       location: 'St. Gallen, Schweiz',
       start: 'Januar 2026',
       end: 'Mai 2026',
+      from: '2026-01',
+      to: '2026-05',
       highlights: [
         'Disziplin, Belastbarkeit und Teamfähigkeit gestärkt',
         'Ausbildung in taktischen Einsätzen, körperlicher Fitness und militärischen Abläufen',
@@ -89,13 +92,15 @@ export const resumeDe = {
       location: 'Zürich, Schweiz',
       start: 'August 2021',
       end: 'August 2025',
+      from: '2021-08',
+      to: '2025-08',
       highlights: [
         '1. Basislehrjahr in der Softwareentwicklung abgeschlossen',
         'Rotation durch verschiedene Abteilungen mit Einblick in unterschiedliche Technologien und IT-Bereiche',
         'Arbeit in den Bereichen Frontend, Backend und Full-Stack-Entwicklung',
         'Praktische Erfahrung mit verschiedenen Entwicklungsumgebungen und Projekten gesammelt',
       ],
-      stack: ['Python', 'PostgreSQL', 'Java', 'PostgreSQL', 'React', 'Flask', 'Linux', 'Angular'],
+      stack: ['Python', 'PostgreSQL', 'Java', 'React', 'Flask', 'Linux', 'Angular'],
     },
   ] satisfies Experience[],
 

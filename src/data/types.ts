@@ -7,6 +7,10 @@ export interface Experience {
   location: string
   start: string
   end: string
+  /** Start month as `YYYY-MM` — drives the duration chip and timeline. (`start`/`end` are just display text.) */
+  from: string
+  /** End month as `YYYY-MM`. Leave out for a role that is still ongoing: it gets the live dot. */
+  to?: string
   highlights: string[]
   stack?: string[]
 }
@@ -55,6 +59,8 @@ export interface Language {
 export interface Fact {
   label: string
   value: string
+  /** Adds a live element under the value: `time` shows the clock for `HOME_TIMEZONE`. */
+  live?: 'time'
 }
 
 export interface Resume {

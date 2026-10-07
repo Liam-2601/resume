@@ -3,9 +3,14 @@
 /* ---- design tokens (defaults = light theme) ---- */
 @theme {
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-signature: "Alex Brush", cursive;
+
+  /* Text scale, nudged up 1px from Tailwind's defaults (12 / 14 / 16 / 18) for readability.
+     This is the one place to dial it; headings (2xl and up) keep their default sizes. */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
 
   /* Clean neutral-grey theme with a single teal brand color. Light mode is
      true neutral greys on near-white; dark mode is a genuine dark GREY
@@ -26,6 +31,97 @@
   --color-accent-2-soft: #def7f4;
 }
 
+/* ---- accent presets ----
+   A preset (`<html data-accent="blue">`, see src/lib/accent.ts) only supplies a light and
+   a dark triplet: fill, text-on-page, and a pale tint. The theme blocks pick whichever
+   matches the current mode, and fall back to the default teal when no preset is set.
+   `accent-ink` (text on a filled accent) stays near-black for every preset — all fills
+   are light enough for it to hold 4.5:1. */
+:root {
+  --color-accent: var(--accent-light, #05ad98);
+  --color-accent-soft: var(--accent-soft-light, #def7f4);
+  --color-accent-2: var(--accent-2-light, #0e8173);
+  --color-accent-2-soft: var(--accent-soft-light, #def7f4);
+}
+
+/* Teal is the default, so the fallbacks above already cover the page itself — but it still
+   needs its own values: custom properties inherit, so without them a teal dot would take on
+   whichever accent the page is currently using. */
+[data-accent="teal"] {
+  --accent-light: #05ad98;
+  --accent-2-light: #0e8173;
+  --accent-soft-light: #def7f4;
+  --accent-dark: #3eead6;
+  --accent-2-dark: #74e7d9;
+  --accent-soft-dark: #123631;
+}
+
+[data-accent="blue"] {
+  --accent-light: #60a5fa;
+  --accent-2-light: #1d4ed8;
+  --accent-soft-light: #dbeafe;
+  --accent-dark: #60a5fa;
+  --accent-2-dark: #93c5fd;
+  --accent-soft-dark: #172a4d;
+}
+
+[data-accent="violet"] {
+  --accent-light: #a78bfa;
+  --accent-2-light: #6d28d9;
+  --accent-soft-light: #ede9fe;
+  --accent-dark: #a78bfa;
+  --accent-2-dark: #c4b5fd;
+  --accent-soft-dark: #2a1f4d;
+}
+
+[data-accent="rose"] {
+  --accent-light: #fb7185;
+  --accent-2-light: #be123c;
+  --accent-soft-light: #ffe4e6;
+  --accent-dark: #fb7185;
+  --accent-2-dark: #fda4af;
+  --accent-soft-dark: #3f1a24;
+}
+
+[data-accent="orange"] {
+  --accent-light: #f97316;
+  --accent-2-light: #c2410c;
+  --accent-soft-light: #ffedd5;
+  --accent-dark: #fb923c;
+  --accent-2-dark: #fdba74;
+  --accent-soft-dark: #3d2410;
+}
+
+/* Theme switch: a circle expands from the toggle (animated in src/lib/viewTransition.ts).
+   The default cross-fade is switched off so only the circle shows, and the page's own colour
+   transitions are paused for the duration so the revealed area is already the new theme. */
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-reveal *,
+html.theme-reveal *::before,
+html.theme-reveal *::after {
+  transition: none !important;
+}
+
+/* a dot showing a preset's own fill colour (the picker and the command menu) */
+.accent-swatch {
+  background-color: var(--accent-light, #05ad98);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .accent-swatch {
+    background-color: var(--accent-dark, #3eead6);
+  }
+}
+
+:root[data-theme="dark"] .accent-swatch {
+  background-color: var(--accent-dark, #3eead6);
+}
+
 /* ---- dark theme overrides ----
    Tailwind reads these custom properties at paint time, so redefining them
    here repaints every `bg-paper` / `text-ink` / etc. utility automatically. */
@@ -38,11 +134,11 @@
     --color-paper-raised: #333333;
     --color-line: #666666;
 
-    --color-accent: #3eead6;
-    --color-accent-soft: #123631;
+    --color-accent: var(--accent-dark, #3eead6);
+    --color-accent-soft: var(--accent-soft-dark, #123631);
     --color-accent-ink: #14201e;
-    --color-accent-2: #74e7d9;
-    --color-accent-2-soft: #123631;
+    --color-accent-2: var(--accent-2-dark, #74e7d9);
+    --color-accent-2-soft: var(--accent-soft-dark, #123631);
   }
 }
 
@@ -54,11 +150,11 @@
   --color-paper-raised: #333333;
   --color-line: #666666;
 
-  --color-accent: #3eead6;
-  --color-accent-soft: #123631;
+  --color-accent: var(--accent-dark, #3eead6);
+  --color-accent-soft: var(--accent-soft-dark, #123631);
   --color-accent-ink: #14201e;
-  --color-accent-2: #74e7d9;
-  --color-accent-2-soft: #123631;
+  --color-accent-2: var(--accent-2-dark, #74e7d9);
+  --color-accent-2-soft: var(--accent-soft-dark, #123631);
 }
 
 html {
@@ -81,6 +177,19 @@ html[data-theme="dark"] {
 
 .animate-bounce-y {
   animation: bounce-y 2s ease-in-out infinite;
+}
+
+/* Long German compounds ("Applikationsentwicklung", "Softwareentwicklung") must wrap — with a
+   proper hyphen where the browser knows how — instead of pushing the layout sideways.
+   <html lang> follows the language toggle, so hyphenation uses the right dictionary.
+   Scoped to the website (`#main-content`); the print CV keeps its own text flow. */
+#main-content h3,
+.wrap-long {
+  /* `anywhere`, not `break-word`: only `anywhere` lets a flex item shrink below its longest word */
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  /* only hyphenate genuinely long words (12+ letters), not ones that merely end up at a line's edge */
+  hyphenate-limit-chars: 12 4 4;
 }
 
 body {
@@ -117,6 +226,12 @@ body::before {
 :focus-visible {
   outline: 2px solid var(--color-accent-2);
   outline-offset: 2px;
+}
+
+/* For inputs whose container already shows focus (the command menu): the global
+   ring above is unlayered, so Tailwind's outline-none can't override it. */
+.no-focus-ring:focus-visible {
+  outline: none;
 }
 
 .bg-dot-grid {
@@ -159,6 +274,113 @@ body::before {
 
 .animate-chip-pop {
   animation: chip-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Command menu. The backdrop fades in with a constant blur (animating the blur
+   radius itself re-blurs every frame and occasionally dropped one); the panel eases
+   up and settles. [data-state=closed] plays it in reverse before the menu unmounts. */
+@keyframes palette-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes palette-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes palette-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes palette-panel-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+.palette-backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(5px);
+  animation: palette-backdrop-in 0.28s ease-out both;
+}
+
+.palette-panel {
+  animation: palette-panel-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+[data-state="closed"] .palette-backdrop {
+  animation: palette-backdrop-out 0.16s ease-in both;
+}
+
+[data-state="closed"] .palette-panel {
+  animation: palette-panel-out 0.16s ease-in both;
+}
+
+@keyframes colon-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+.animate-colon-blink {
+  animation: colon-blink 1s linear infinite;
+}
+
+/* copy-email toast */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+.toast {
+  animation: toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.toast[data-state="closed"] {
+  animation: toast-out 0.2s ease-in both;
 }
 
 @keyframes marquee {
@@ -218,7 +440,14 @@ body::before {
   .animate-fade-up,
   .animate-bounce-y,
   .animate-marquee,
-  .animate-chip-pop {
+  .animate-chip-pop,
+  .animate-colon-blink,
+  .toast,
+  .toast[data-state="closed"],
+  .palette-backdrop,
+  .palette-panel,
+  [data-state="closed"] .palette-backdrop,
+  [data-state="closed"] .palette-panel {
     animation: none;
     opacity: 1;
   }

@@ -64,7 +64,7 @@ export default function Print() {
               <img src={resume.photo} alt={resume.name} className="h-full w-full object-cover" />
             ) : (
               <div
-                className="flex h-full w-full items-center justify-center font-display text-[18pt] font-normal text-white"
+                className="flex h-full w-full items-center justify-center text-[18pt] font-bold text-white"
                 style={{ background: 'rgba(255,255,255,0.12)' }}
               >
                 {initialsOf(resume.name)}
@@ -154,7 +154,7 @@ export default function Print() {
           style={{ background: `linear-gradient(100deg, ${INK}, ${INK_2})` }}
         >
           <h1 className="text-[22pt] font-semibold tracking-tight">{resume.name}</h1>
-          <p className="mt-1 font-mono text-[10.5pt] tracking-wide" style={{ color: '#8fe0d2' }}>
+          <p className="mt-1 text-[10.5pt] tracking-wide" style={{ color: '#8fe0d2' }}>
             {resume.title}
           </p>
         </header>
@@ -168,7 +168,7 @@ export default function Print() {
                     <h3 className="text-[10.5pt] font-semibold">
                       {job.role} — {job.company}
                     </h3>
-                    <span className="whitespace-nowrap font-mono text-[8pt]" style={{ color: SLATE_FAINT }}>
+                    <span className="whitespace-nowrap text-[8pt]" style={{ color: SLATE_FAINT }}>
                       {job.start} – {job.end}
                     </span>
                   </div>
@@ -184,7 +184,7 @@ export default function Print() {
                     ))}
                   </ul>
                   {job.stack && job.stack.length > 0 && (
-                    <p className="mt-1 font-mono text-[8pt]" style={{ color: SLATE_FAINT }}>
+                    <p className="mt-1 text-[8pt]" style={{ color: SLATE_FAINT }}>
                       {job.stack.join(' · ')}
                     </p>
                   )}
@@ -202,7 +202,7 @@ export default function Print() {
                     <p className="text-[9pt]" style={{ color: SLATE }}>
                       {p.description}
                     </p>
-                    <p className="font-mono text-[8pt]" style={{ color: SLATE_FAINT }}>
+                    <p className="text-[8pt]" style={{ color: SLATE_FAINT }}>
                       {p.stack.join(' · ')}
                     </p>
                   </div>
@@ -217,7 +217,7 @@ export default function Print() {
                 <div key={`${ed.school}-${ed.degree}`} className="break-inside-avoid">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="text-[9.5pt] font-semibold">{ed.degree}</h3>
-                    <span className="whitespace-nowrap font-mono text-[8pt]" style={{ color: SLATE_FAINT }}>
+                    <span className="whitespace-nowrap text-[8pt]" style={{ color: SLATE_FAINT }}>
                       {ed.start} – {ed.end}
                     </span>
                   </div>

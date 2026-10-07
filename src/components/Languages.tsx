@@ -14,7 +14,7 @@ export default function Languages({ items }: { items: Language[] }) {
           <div key={lang.name} className="rounded-2xl border border-line bg-paper-raised p-4">
             <p className="text-sm font-semibold text-ink">{lang.name}</p>
             <div className="mt-2.5 flex items-center justify-between gap-2">
-              <span className="font-mono text-[10px] uppercase tracking-wide text-ink-faint">
+              <span className="text-[11px] uppercase tracking-wide text-ink-faint">
                 {t.languageLevels[lang.level]}
               </span>
               <div className="flex gap-1" aria-hidden>

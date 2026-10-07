@@ -40,7 +40,7 @@ export const resumeEn = {
     facts: [
       { label: 'Focus', value: 'Software Engineering' },
       { label: 'Currently', value: 'Junior Software Engineer @Sunrise' },
-      { label: 'Based in', value: 'Zürich, Switzerland' },
+      { label: 'Based in', value: 'Zürich, Switzerland', live: 'time' },
       { label: 'Outside work', value: 'Running, gym, guitar and hiking' },
     ] satisfies Fact[],
   },
@@ -54,6 +54,7 @@ export const resumeEn = {
       location: 'Zürich, Switzerland',
       start: 'August 2025',
       end: 'Present',
+      from: '2025-08',
       highlights: [
         'Developing microservice architecture with a focus on backend services and cloud solutions',
         'Building and maintaining CI/CD pipelines and automated deployment processes',
@@ -70,6 +71,8 @@ export const resumeEn = {
       location: 'St. Gallen, Switzerland',
       start: 'January 2026',
       end: 'May 2026',
+      from: '2026-01',
+      to: '2026-05',
       highlights: [
         'Developed strong discipline, resilience and teamwork',
         'Trained in tactical operations, physical fitness and military procedures',
@@ -85,6 +88,8 @@ export const resumeEn = {
       location: 'Zürich, Switzerland',
       start: 'August 2021',
       end: 'August 2025',
+      from: '2021-08',
+      to: '2025-08',
       highlights: [
         'Completed 1st Basis-Lehrjahr in Software Development',
         'Rotated through different departments, gaining insight into various technologies and IT areas',

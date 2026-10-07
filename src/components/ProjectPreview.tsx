@@ -12,7 +12,7 @@ export default function ProjectPreview({ src, name }: { src?: string; name: stri
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent-soft via-paper to-accent-2-soft">
             <div aria-hidden className="absolute inset-0 bg-dot-grid" />
-            <span className="relative rounded-full border border-line bg-paper-raised/80 px-3 py-1 font-mono text-xs text-ink-faint backdrop-blur">
+            <span className="relative rounded-full border border-line bg-paper-raised/80 px-3 py-1 text-xs text-ink-faint backdrop-blur">
               {'</>'} preview
             </span>
           </div>
